@@ -1,0 +1,39 @@
+{
+  "name": "@rtl-first/audit",
+  "version": "0.1.0",
+  "description": "Scan any project for RTL readiness across all 5 layers",
+  "main": "src/index.js",
+  "bin": {
+    "rtl-audit": "src/cli.js"
+  },
+  "type": "module",
+  "scripts": {
+    "test": "node --test src/**/*.test.js",
+    "start": "node src/cli.js"
+  },
+  "keywords": [
+    "rtl",
+    "right-to-left",
+    "arabic",
+    "hebrew",
+    "i18n",
+    "internationalization",
+    "audit",
+    "accessibility",
+    "css-logical-properties",
+    "bidi"
+  ],
+  "author": "Mohammad AlShammari <imohad>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/imohad/rtl-first",
+    "directory": "packages/rtl-audit"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "files": [
+    "src/"
+  ]
+}
