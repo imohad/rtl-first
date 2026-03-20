@@ -1,13 +1,15 @@
 # rtl-first
 
-> Build for the world from day one. Or arabize any platform yourself.
+> Arabize any JavaScript web application. Build for the world from day one.
 
 Most software is built English-first. RTL languages — Arabic, Hebrew, Persian, Urdu — are treated as an afterthought. **This is not a translation problem. This is an architecture problem.**
 
-rtl-first is an open-source framework for developers who want to:
-- **Build** RTL-ready platforms from day one
-- **Contribute** RTL support to existing open-source projects
-- **Fork** and arabize any platform for your local market
+rtl-first is an open-source framework and CLI toolkit for arabizing any web application built with JavaScript frameworks. It works on **any project** using Next.js, Nuxt, Remix, Vite, Angular, SvelteKit, or Create React App — whether it's an AI platform, a CRM, a scheduling tool, or anything in between.
+
+Three audiences, one framework:
+- **Builders** — building a new platform RTL-ready from day one
+- **Contributors** — adding RTL support to open-source projects via upstream PRs
+- **Forkers** — taking any open-source platform and arabizing it for your market
 
 ## Quick Start
 
@@ -99,20 +101,33 @@ You want to add RTL support to an existing open-source project and get your PRs 
 → Read the [Methodology](02-for-contributors/methodology.md) and [PR Guide](02-for-contributors/pr-guide.md)
 
 ### Forkers
-You're taking an open-source platform (Dify, Cal.com, AppFlowy...) and arabizing it for your company or market.
+You're taking any open-source web application and arabizing it for your company or local market. Works on AI platforms (Dify, LobeChat), productivity tools (AFFiNE, Plane), scheduling (Cal.com), low-code (NocoBase, Tooljet, Appsmith), communication (Rocket.Chat, Chatwoot), e-commerce (Medusa), and any other JavaScript web app.
 → Run `npx @rtl-first/arabize ./` and read the [Fork RTL Methodology](03-for-forkers/fork-rtl-methodology.md)
 
-## Platform Status
+## Works With Any JavaScript Web App
 
-Platforms we've audited with rtl-first:
+rtl-first works on any project with a `package.json` and a supported framework. Here are some categories of platforms you can arabize:
 
-| Platform | Stars | RTL Score | Status |
-|----------|-------|-----------|--------|
-| Dify | 133k+ | 70/100 (C) | Issue opened, awaiting response |
-| AFFiNE | 65k+ | — | 2 PRs merged, blocksuite needs deep RTL work |
-| Cal.com | 34k+ | 70/100 (C) | Not started |
-| AppFlowy | 60k+ | 65/100 (C) | Issue open since 2021 |
-| NocoBase | 15k+ | 42/100 (D) | Issue open |
+| Category | Examples |
+|----------|---------|
+| AI / LLM | Dify, LobeChat, Open WebUI, LibreChat, Flowise |
+| Productivity | AFFiNE, AppFlowy, Plane, Huly, Twenty CRM |
+| Scheduling | Cal.com |
+| Low-code | NocoBase, Tooljet, Budibase, Appsmith, NocoDB |
+| Communication | Rocket.Chat, Chatwoot, Element |
+| E-commerce | Medusa, Saleor |
+| Analytics | Plausible, Umami, PostHog |
+| Dev tools | Gitea, Hoppscotch, Infisical |
+
+## Platforms We've Tested
+
+| Platform | Stars | What happened |
+|----------|-------|---------------|
+| **Dify** | 133k+ | `npx @rtl-first/arabize ./` — detected monorepo, injected RTL, found 527 CSS properties |
+| **AFFiNE** | 65k+ | 2 PRs merged upstream (RTL layout + Arabic locale + date-picker fix) |
+| **Cal.com** | 34k+ | Audited, straightforward — no complex text editor |
+| **AppFlowy** | 60k+ | Audited, Rust editor needs deep work |
+| **NocoBase** | 15k+ | Audited, straightforward interface |
 
 ## Case Studies
 
