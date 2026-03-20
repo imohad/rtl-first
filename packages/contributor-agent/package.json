@@ -1,0 +1,37 @@
+{
+  "name": "@rtl-first/contributor-agent",
+  "version": "0.1.0",
+  "description": "AI-powered agent that generates RTL contribution plans, issue templates, and PR descriptions from audit results",
+  "main": "src/index.js",
+  "bin": {
+    "rtl-contributor": "src/cli.js"
+  },
+  "type": "module",
+  "scripts": {
+    "test": "node --test src/**/*.test.js"
+  },
+  "keywords": [
+    "rtl",
+    "contributor",
+    "ai",
+    "claude",
+    "open-source",
+    "arabic",
+    "i18n",
+    "pull-request",
+    "issue-template"
+  ],
+  "author": "Mohammad AlShammari <imohad>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/imohad/rtl-first",
+    "directory": "packages/contributor-agent"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "files": [
+    "src/"
+  ]
+}
