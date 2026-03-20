@@ -1,60 +1,65 @@
 # Contributing to rtl-first
 
-Thanks for your interest in making the web work for RTL languages.
+Thank you for your interest in contributing to rtl-first. Every contribution helps make RTL support better for 400 million Arabic speakers and millions more who use Hebrew, Persian, and Urdu.
 
-## Ways to contribute
+## Ways to Contribute
 
-**Low effort, high impact:**
-- Run `npx @rtl-first/audit` on a project you use and share the results
-- Open an issue in that project with the audit report
-- Fix typos or improve documentation
+### Report Issues
+- Found a bug in one of the tools? Open an issue.
+- Tool didn't detect your framework? Open an issue with your `package.json` (redact private info).
+- CSS codemod missed a pattern? Show us the input and expected output.
 
-**Medium effort:**
-- Add a new platform to the [platform status](docs/for-contributors/platform-status.md) tracker
-- Write a case study about your RTL contribution experience
-- Improve detection rules in rtl-audit
+### Add Platform Recipes
+Tested rtl-first on a platform not in our list? Add a recipe:
+1. Fork the repo
+2. Create `03-for-forkers/platform-recipes/platform-name.md`
+3. Document what worked, what didn't, and any platform-specific quirks
+4. Submit a PR
 
-**High effort:**
-- Build or improve tools in the `packages/` directory
-- Contribute RTL support to a major open-source project using our methodology
-- Add framework-specific guides (Vue, Angular, Svelte)
+### Improve Tools
+- Add support for a new framework in `direction-injector`
+- Add support for a new i18n library in `locale-scaffolder`
+- Improve CSS pattern matching in `codemod`
+- Fix edge cases in `patch-generator`
 
-## Development setup
+### Improve Documentation
+- Fix typos or unclear explanations
+- Add examples from your own RTL contribution experience
+- Translate documentation (while keeping English as the primary language)
+
+## Development Setup
 
 ```bash
 git clone https://github.com/imohad/rtl-first.git
 cd rtl-first
 
-# Work on rtl-audit
-cd packages/rtl-audit
-npm install
-npm test
+# Each tool is independent — cd into the one you're working on
+cd 04-tools/direction-injector
+node bin/cli.js --help
+
+# Run on a test project
+node bin/cli.js /path/to/test-project --dry-run
 ```
 
-## Pull request guidelines
+## Code Guidelines
 
-We practice what we preach. The same rules from our [PR guide](docs/for-contributors/pr-guide.md) apply here:
+- **Zero dependencies.** All tools must work with Node.js only. No npm install required for users.
+- **Idempotent.** Running a tool twice should produce the same result.
+- **Dry run first.** Every tool must support `--dry-run` to preview changes.
+- **JSON output.** Every tool must support `--json` for programmatic use.
+- **Clear reports.** Output should tell the user exactly what changed and what to do next.
 
-1. **Open an issue first** for anything beyond typo fixes
-2. **One change per PR** — don't mix documentation updates with code changes
-3. **Keep PRs small** — 1-5 files is ideal, 10+ files needs justification
-4. **Branch from main** — not from your fork's stale branch
-5. **Write descriptive commit messages** — `fix: improve Layer 3 CSS detection regex` not `update`
+## PR Guidelines
 
-## Code style
+- One logical change per PR
+- Include a clear description of what and why
+- Test on at least one real project before submitting
+- Update the relevant README if you add a feature
 
-- No external dependencies in rtl-audit (zero-dep is a feature)
-- Node.js >= 18
-- Use ES modules
-- Write tests for new detection rules
+## Code of Conduct
 
-## Reporting issues
+Be respectful. Be constructive. We're all here to make software work better for RTL languages.
 
-When reporting a false positive or missed detection in rtl-audit, include:
-- The command you ran
-- The project you scanned (or a minimal reproduction)
-- What you expected vs. what you got
+## License
 
-## Code of conduct
-
-Be respectful. We're building tools for global inclusion — let's practice inclusion in how we work together.
+By contributing, you agree that your contributions will be licensed under the MIT License.
