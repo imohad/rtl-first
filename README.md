@@ -76,11 +76,27 @@ You want to add RTL support to an open-source project and get your PRs merged. Y
 
 ## Tools
 
-| Tool | What it does | Status |
-|------|-------------|--------|
-| **[@rtl-first/audit](packages/rtl-audit)** | Scans any repo and reports RTL readiness across all 5 layers | 🟢 Available |
-| **[@rtl-first/codemod](packages/rtl-codemod)** | Converts CSS physical properties to logical properties | 🟡 Coming soon |
-| **[@rtl-first/translation-kit](packages/translation-kit)** | Finds missing translation keys and hardcoded strings | 🟡 Coming soon |
+| Tool | What it does | Install |
+|------|-------------|---------|
+| **[@rtl-first/audit](packages/rtl-audit)** | Scans any repo and reports RTL readiness across all 5 layers | `npx @rtl-first/audit ./path` |
+| **[@rtl-first/codemod](packages/rtl-codemod)** | Converts CSS physical properties to logical properties | `npx @rtl-first/codemod --dry-run ./src` |
+| **[@rtl-first/translation-kit](packages/translation-kit)** | Finds missing translation keys and exports them for translators | `npx @rtl-first/translation-kit --source en-US --target ar-TN` |
+
+All tools are zero-dependency and work with Node.js >= 18.
+
+## Platform RTL readiness
+
+Real audit results from running `@rtl-first/audit` on major open-source platforms:
+
+| Platform | Stars | RTL Score | Grade | Key issue |
+|----------|-------|-----------|-------|-----------|
+| **Dify** | 90k+ | 70/100 | C | 404 physical CSS properties, 62 missing translation keys |
+| **Cal.com** | 34k+ | 70/100 | C | 316 physical CSS properties, 116 missing translation keys |
+| **AppFlowy** | 60k+ | 65/100 | C | Rust editor needs BiDi, no direction logic |
+| **NocoBase** | 15k+ | 42/100 | D | 1,012 physical CSS properties, CodeMirror + Slate editors |
+| **AFFiNE** | 65k+ | — | — | blocksuite needs InlineEditor BiDi support |
+
+→ [Full platform details](docs/for-contributors/platform-status.md)
 
 ## Case studies
 
@@ -95,20 +111,6 @@ A complete account of adding RTL support to a complex open-source project — in
 > *"Simply tweaking styles cannot bring native RTL support to the editor; supporting RTL editing requires adjusting a large amount of editor logic."*
 
 This is exactly why we built the five-layer model. CSS (Layer 3) without text engine support (Layer 1) is incomplete — and experienced maintainers know it.
-
-## Platform RTL readiness
-
-Platforms we've audited or plan to audit:
-
-| Platform | Stars | RTL readiness | Key issue |
-|----------|-------|--------------|-----------|
-| **Dify** | 90k+ | Not started | No ar.json, no direction logic |
-| **AppFlowy** | 60k+ | Issue open since 2021 | Rust editor needs BiDi |
-| **Cal.com** | 34k+ | Not started | No complex editor — good candidate |
-| **AFFiNE** | 65k+ | Partial (Layer 2-4 done) | Layer 1 needs InlineEditor work |
-| **NocoBase** | 15k+ | Issue open | No complex editor — good candidate |
-
-*Scores will be added as we run `rtl-audit` on each platform.*
 
 ## Contributing
 
