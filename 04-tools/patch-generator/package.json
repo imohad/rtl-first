@@ -1,0 +1,36 @@
+{
+  "name": "@rtl-first/patch-generator",
+  "version": "0.1.0",
+  "description": "Generate rebaseable RTL patches organized by layer — apply after every upstream rebase",
+  "main": "index.js",
+  "bin": {
+    "rtl-patch-generator": "./bin/cli.js"
+  },
+  "keywords": [
+    "rtl",
+    "right-to-left",
+    "arabic",
+    "patch",
+    "fork",
+    "rebase",
+    "i18n",
+    "codemod"
+  ],
+  "author": "Mohammad AlShammari <imohad>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/imohad/rtl-first.git",
+    "directory": "packages/patch-generator"
+  },
+  "homepage": "https://github.com/imohad/rtl-first#readme",
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "files": [
+    "bin/",
+    "lib/",
+    "index.js",
+    "README.md"
+  ]
+}

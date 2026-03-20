@@ -1,0 +1,37 @@
+{
+  "name": "@rtl-first/direction-injector",
+  "version": "0.1.0",
+  "description": "Automatically inject dir=\"rtl\" and lang=\"ar\" into any web project's root element",
+  "main": "index.js",
+  "bin": {
+    "rtl-direction-injector": "./bin/cli.js"
+  },
+  "keywords": [
+    "rtl",
+    "right-to-left",
+    "arabic",
+    "hebrew",
+    "i18n",
+    "internationalization",
+    "direction",
+    "bidi",
+    "codemod"
+  ],
+  "author": "Mohammad AlShammari <imohad>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/imohad/rtl-first.git",
+    "directory": "packages/direction-injector"
+  },
+  "homepage": "https://github.com/imohad/rtl-first#readme",
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "files": [
+    "bin/",
+    "lib/",
+    "index.js",
+    "README.md"
+  ]
+}

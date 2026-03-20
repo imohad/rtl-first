@@ -1,0 +1,36 @@
+{
+  "name": "@rtl-first/locale-scaffolder",
+  "version": "0.1.0",
+  "description": "Scaffold a new locale (ar.json) and wire it into any i18n system with one command",
+  "main": "index.js",
+  "bin": {
+    "rtl-locale-scaffolder": "./bin/cli.js"
+  },
+  "keywords": [
+    "rtl",
+    "right-to-left",
+    "arabic",
+    "i18n",
+    "locale",
+    "scaffold",
+    "internationalization",
+    "translation"
+  ],
+  "author": "Mohammad AlShammari <imohad>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/imohad/rtl-first.git",
+    "directory": "packages/locale-scaffolder"
+  },
+  "homepage": "https://github.com/imohad/rtl-first#readme",
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "files": [
+    "bin/",
+    "lib/",
+    "index.js",
+    "README.md"
+  ]
+}

@@ -1,124 +1,159 @@
 # rtl-first
 
-**Build for the world from day one.**
+> Build for the world from day one. Or arabize any platform yourself.
 
-Most software is built English-first. RTL languages — Arabic, Hebrew, Persian, Urdu — are treated as an afterthought. Over 1 billion people use RTL scripts daily, yet there is no systematic framework for making open-source software work for them.
+Most software is built English-first. RTL languages — Arabic, Hebrew, Persian, Urdu — are treated as an afterthought. **This is not a translation problem. This is an architecture problem.**
 
-**This isn't a translation problem. It's an architectural problem.**
+rtl-first is an open-source framework for developers who want to:
+- **Build** RTL-ready platforms from day one
+- **Contribute** RTL support to existing open-source projects
+- **Fork** and arabize any platform for your local market
 
-`rtl-first` is an open-source framework that gives developers the methodology, tools, and playbooks to either build RTL-ready software from scratch or contribute RTL support to existing projects — the right way.
+## Quick Start
 
-## Quick start
+### Forkers — Arabize any platform in one command
 
 ```bash
-# Audit any project for RTL readiness
-npx @rtl-first/audit ./my-project
+npx @rtl-first/arabize ./my-fork
 ```
 
-```
-RTL Audit Report — my-project
-═══════════════════════════════════════
+This single command will:
+1. Detect your framework (Next.js, Nuxt, Remix, Vite, Angular...)
+2. Inject `dir="rtl"` and `lang="ar"` on the root element
+3. Copy source locale → `ar.json` and update your i18n config
+4. Generate a `LocaleSwitcher` component
+5. Create rebaseable CSS patches in `.rtl-patches/`
 
-Layer 1 — Text engine         ✅ No rich-text editor detected
-Layer 2 — Direction logic     ❌ No dir="rtl" on document root
-Layer 3 — CSS layout          ⚠️  423 files use physical properties
-Layer 4 — Translations        ⚠️  ar.json not found (en.json: 1,660 keys)
-Layer 5 — Hardcoded text      ❌ 89 hardcoded English strings in JSX
-
-RTL Readiness Score: 12/100
-
-Priority: Layer 2 → Layer 4 → Layer 5 → Layer 3
+After every upstream rebase:
+```bash
+git rebase upstream/main && bash .rtl-patches/apply-all.sh
 ```
 
-## The problem
+### Contributors — Audit any repo
 
-Open-source projects handle RTL support in one of three ways:
+```bash
+npx @rtl-first/audit ./project
+```
 
-1. **Ignore it.** No `dir="rtl"`, no Arabic translation, no CSS logical properties. The UI breaks completely for RTL users.
-2. **Bolt it on.** Someone adds `ar.json` and a few CSS overrides. The layout half-works. Text editors remain broken. Nobody maintains it.
-3. **Treat it as a CSS problem.** Run a stylesheet flipper and call it done. But the text engine doesn't handle BiDi, hardcoded strings stay in English, and the direction logic is missing entirely.
+Get a full RTL readiness report across all five layers:
+```
+Layer 1 — Text Engine:    ⚠️  Uses ProseMirror (BiDi not configured)
+Layer 2 — Direction:      ❌  No dir="rtl" on document
+Layer 3 — CSS Layout:     ❌  147 files use margin-left/right
+Layer 4 — Translations:   ⚠️  ar.json missing
+Layer 5 — Hardcoded:      ❌  34 hardcoded English strings
+```
 
-None of these work because RTL support has **five distinct layers**, and most projects only address one or two.
+### Builders — Use the architecture guide
 
-## The five layers of RTL readiness
+Read [01-for-builders/architecture.md](01-for-builders/architecture.md) for how to build RTL-first from day one.
 
-Every software project that displays text has these five layers. Fix them in order — skipping a deeper layer means the surface layers will always be fragile.
+## The Five Layers of RTL Readiness
 
-| Layer | What it covers | Depth | Example fix |
-|-------|---------------|-------|-------------|
-| **1 — Text engine** | BiDi algorithm, cursor movement, selection | Deepest | Configure ProseMirror BiDi, fix InlineEditor |
-| **2 — Direction logic** | `dir="rtl"` on document, DirectionProvider | Deep | `document.documentElement.dir = "rtl"` |
-| **3 — CSS layout** | Physical → logical properties | Surface | `margin-left` → `margin-inline-start` |
-| **4 — Translations** | Locale files (ar.json, he.json, fa.json) | Surface | Add missing i18n keys |
-| **5 — Hardcoded text** | Strings buried in source code | Surface | Replace `"Settings"` with `t('settings')` |
+Every RTL problem lives in one of five layers. Always start by asking: **"Where is text generated in this system?"**
 
-> **The fundamental question before writing any code:**
-> *"Where does text originate in this system?"*
->
-> If the answer is a third-party editor library (ProseMirror, Slate, CodeMirror), check whether it supports BiDi **before** touching CSS. No amount of stylesheet fixes will make a broken text engine work correctly.
+```
+Layer 1 — Text Engine       ← Does it understand BiDi? (deepest, hardest)
+Layer 2 — Direction Logic   ← dir="rtl" + DirectionProvider
+Layer 3 — CSS Layout        ← CSS logical properties
+Layer 4 — Translations      ← ar.json
+Layer 5 — Hardcoded Text    ← English strings buried in code
+```
 
-## Who this is for
+## Tools — 8 Packages
 
-### Builders — starting a new project
+### The Master Script
+| Package | Command | What it does |
+|---------|---------|-------------|
+| **@rtl-first/arabize** | `npx @rtl-first/arabize ./` | Arabize any platform — one command does everything |
 
-You're building something new and want RTL support from day one. You need architecture guidance, not patches.
+### Core Tools (for everyone)
+| Package | Command | What it does |
+|---------|---------|-------------|
+| @rtl-first/audit | `npx @rtl-first/audit ./` | Scan any repo for RTL readiness across all 5 layers |
+| @rtl-first/codemod | `npx @rtl-first/codemod ./src` | Convert CSS physical → logical properties |
 
-→ [Architecture guide](docs/for-builders/architecture.md) — how to build RTL-first  
-→ [Pre-launch checklist](docs/for-builders/checklist.md) — 20 checks before you ship
+### For Contributors
+| Package | Command | What it does |
+|---------|---------|-------------|
+| @rtl-first/translation-kit | `npx @rtl-first/translation-kit --source en.json --target ar.json` | Find missing translation keys + hardcoded strings |
+| @rtl-first/contributor-agent | `npx @rtl-first/contributor-agent --audit report.json` | Generate ready-made PRs with descriptions |
 
-### Contributors — improving an existing project
+### For Forkers
+| Package | Command | What it does |
+|---------|---------|-------------|
+| @rtl-first/direction-injector | `npx @rtl-first/direction-injector ./` | Auto-detect framework and inject dir="rtl" |
+| @rtl-first/locale-scaffolder | `npx @rtl-first/locale-scaffolder ./` | Scaffold ar.json + update config + generate LocaleSwitcher |
+| @rtl-first/patch-generator | `npx @rtl-first/patch-generator ./` | Generate rebaseable RTL patches per layer |
 
-You want to add RTL support to an open-source project and get your PRs merged. You need a methodology and tools.
+All packages have **zero dependencies** (except arabize which depends on the three forker tools). Every tool supports `--dry-run`, `--json`, and `--help`.
 
-→ [Contribution methodology](docs/for-contributors/methodology.md) — the five layers in depth  
-→ [PR guide](docs/for-contributors/pr-guide.md) — from first issue to merged PR  
-→ [Platform status](docs/for-contributors/platform-status.md) — RTL readiness of major platforms
+## Who is this for?
 
-## Tools
+### Builders
+You're building a new platform and want RTL support from day one.
+→ Read the [Architecture Guide](01-for-builders/architecture.md) and [Checklist](01-for-builders/checklist.md)
 
-| Tool | What it does | Install |
-|------|-------------|---------|
-| **[@rtl-first/audit](packages/rtl-audit)** | Scans any repo and reports RTL readiness across all 5 layers | `npx @rtl-first/audit ./path` |
-| **[@rtl-first/codemod](packages/rtl-codemod)** | Converts CSS physical properties to logical properties | `npx @rtl-first/codemod --dry-run ./src` |
-| **[@rtl-first/translation-kit](packages/translation-kit)** | Finds missing translation keys and exports them for translators | `npx @rtl-first/translation-kit --source en-US --target ar-TN` |
+### Contributors
+You want to add RTL support to an existing open-source project and get your PRs merged.
+→ Read the [Methodology](02-for-contributors/methodology.md) and [PR Guide](02-for-contributors/pr-guide.md)
 
-All tools are zero-dependency and work with Node.js >= 18.
+### Forkers
+You're taking an open-source platform (Dify, Cal.com, AppFlowy...) and arabizing it for your company or market.
+→ Run `npx @rtl-first/arabize ./` and read the [Fork RTL Methodology](03-for-forkers/fork-rtl-methodology.md)
 
-## Platform RTL readiness
+## Platform Status
 
-Real audit results from running `@rtl-first/audit` on major open-source platforms:
+Platforms we've audited with rtl-first:
 
-| Platform | Stars | RTL Score | Grade | Key issue |
-|----------|-------|-----------|-------|-----------|
-| **Dify** | 90k+ | 70/100 | C | 404 physical CSS properties, 62 missing translation keys |
-| **Cal.com** | 34k+ | 70/100 | C | 316 physical CSS properties, 116 missing translation keys |
-| **AppFlowy** | 60k+ | 65/100 | C | Rust editor needs BiDi, no direction logic |
-| **NocoBase** | 15k+ | 42/100 | D | 1,012 physical CSS properties, CodeMirror + Slate editors |
-| **AFFiNE** | 65k+ | — | — | blocksuite needs InlineEditor BiDi support |
+| Platform | Stars | RTL Score | Status |
+|----------|-------|-----------|--------|
+| Dify | 133k+ | 70/100 (C) | Issue opened, awaiting response |
+| AFFiNE | 65k+ | — | 2 PRs merged, blocksuite needs deep RTL work |
+| Cal.com | 34k+ | 70/100 (C) | Not started |
+| AppFlowy | 60k+ | 65/100 (C) | Issue open since 2021 |
+| NocoBase | 15k+ | 42/100 (D) | Issue open |
 
-→ [Full platform details](docs/for-contributors/platform-status.md)
+## Case Studies
 
-## Case studies
+### AFFiNE — Full journey documented
+Two PRs merged (RTL layout + Arabic locale + date-picker fix). Third PR closed — maintainer confirmed CSS-only RTL is insufficient for blocksuite's editor. The full story with lessons learned is in [05-case-studies/affine/](05-case-studies/affine/).
 
-### AFFiNE (65k+ stars)
+Key lesson: **Always ask "Where is text generated?" before writing any code.** If the answer is a text engine that doesn't support BiDi, CSS fixes won't solve the real problem.
 
-A complete account of adding RTL support to a complex open-source project — including what worked, what got rejected, and why the maintainers closed a PR after weeks of work.
+## Project Structure
 
-→ [Full case study](docs/case-studies/affine.md)
-
-**Key lesson:** The maintainer's response to our CSS-focused RTL PR:
-
-> *"Simply tweaking styles cannot bring native RTL support to the editor; supporting RTL editing requires adjusting a large amount of editor logic."*
-
-This is exactly why we built the five-layer model. CSS (Layer 3) without text engine support (Layer 1) is incomplete — and experienced maintainers know it.
+```
+rtl-first/
+├── README.md                        ← you are here
+├── 01-for-builders/
+│   ├── architecture.md
+│   ├── checklist.md
+│   └── stack-guides/
+├── 02-for-contributors/
+│   ├── methodology.md
+│   ├── pr-guide.md
+│   └── platform-status.md
+├── 03-for-forkers/
+│   ├── quick-start.md
+│   ├── fork-rtl-methodology.md
+│   └── platform-recipes/
+├── 04-tools/
+│   ├── arabize/
+│   ├── audit/
+│   ├── codemod/
+│   ├── contributor-agent/
+│   ├── direction-injector/
+│   ├── locale-scaffolder/
+│   ├── patch-generator/
+│   └── translation-kit/
+└── 05-case-studies/
+    └── affine/
+```
 
 ## Contributing
 
-We welcome contributions of all kinds — from fixing typos to auditing new platforms to building tools.
-
-→ [Contributing guide](CONTRIBUTING.md)
-
-The easiest way to start: run `npx @rtl-first/audit` on a project you use, and open an issue in that project with the results.
+See [CONTRIBUTING.md](CONTRIBUTING.md). All contributions welcome — from documentation fixes to new platform recipes to tool improvements.
 
 ## License
 
@@ -126,4 +161,4 @@ MIT
 
 ---
 
-Built by [@imohad](https://github.com/imohad). Born from the experience of contributing RTL support to AFFiNE and learning — sometimes the hard way — what works and what doesn't.
+*Built by [Mohammad AlShammari](https://github.com/imohad) — because 400 million Arabic speakers deserve software that works in their direction.*

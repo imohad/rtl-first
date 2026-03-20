@@ -1,0 +1,41 @@
+{
+  "name": "@rtl-first/arabize",
+  "version": "0.1.0",
+  "description": "Arabize any open-source platform with one command — the master script for forkers",
+  "main": "index.js",
+  "bin": {
+    "rtl-arabize": "./bin/cli.js"
+  },
+  "keywords": [
+    "rtl",
+    "right-to-left",
+    "arabic",
+    "arabize",
+    "arabization",
+    "i18n",
+    "fork",
+    "localization"
+  ],
+  "author": "Mohammad AlShammari <imohad>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/imohad/rtl-first.git",
+    "directory": "packages/arabize"
+  },
+  "homepage": "https://github.com/imohad/rtl-first#readme",
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "dependencies": {
+    "@rtl-first/direction-injector": "0.1.0",
+    "@rtl-first/locale-scaffolder": "0.1.0",
+    "@rtl-first/patch-generator": "0.1.0"
+  },
+  "files": [
+    "bin/",
+    "lib/",
+    "index.js",
+    "README.md"
+  ]
+}
