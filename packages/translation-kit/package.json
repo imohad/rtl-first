@@ -1,0 +1,36 @@
+{
+  "name": "@rtl-first/translation-kit",
+  "version": "0.1.0",
+  "description": "Find missing translation keys and hardcoded strings for RTL localization",
+  "main": "src/index.js",
+  "bin": {
+    "rtl-translation-kit": "src/cli.js"
+  },
+  "type": "module",
+  "scripts": {
+    "test": "node --test src/**/*.test.js"
+  },
+  "keywords": [
+    "rtl",
+    "i18n",
+    "translation",
+    "arabic",
+    "hebrew",
+    "localization",
+    "missing-keys",
+    "hardcoded-strings"
+  ],
+  "author": "Mohammad AlShammari <imohad>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/imohad/rtl-first",
+    "directory": "packages/translation-kit"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "files": [
+    "src/"
+  ]
+}
