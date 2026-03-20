@@ -1,0 +1,36 @@
+{
+  "name": "@rtl-first/codemod",
+  "version": "0.1.0",
+  "description": "Convert CSS physical properties to logical properties for RTL support",
+  "main": "src/index.js",
+  "bin": {
+    "rtl-codemod": "src/cli.js"
+  },
+  "type": "module",
+  "scripts": {
+    "test": "node --test src/**/*.test.js"
+  },
+  "keywords": [
+    "rtl",
+    "css",
+    "logical-properties",
+    "codemod",
+    "right-to-left",
+    "i18n",
+    "arabic",
+    "hebrew"
+  ],
+  "author": "Mohammad AlShammari <imohad>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/imohad/rtl-first",
+    "directory": "packages/rtl-codemod"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "files": [
+    "src/"
+  ]
+}
