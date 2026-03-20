@@ -1,5 +1,14 @@
 # rtl-first
 
+<div dir="rtl" align="right">
+
+هذا العمل هديّة لكل ناطق بالعربية.
+أسأل الله أن يجعله وقفاً لوجهه الكريم، وعلماً يُنتفع به إلى يوم الدين.
+
+</div>
+
+---
+
 > Arabize any JavaScript web application. Build for the world from day one.
 
 Most software is built English-first. RTL languages — Arabic, Hebrew, Persian, Urdu — are treated as an afterthought. **This is not a translation problem. This is an architecture problem.**
