@@ -126,6 +126,22 @@ function quickFrameworkDetect(dir) {
 }
 
 /**
+ * Detect monorepo and return the frontend subdirectory
+ */
+function detectMonorepoSubdir(dir) {
+  const subdirs = ['web', 'frontend', 'client', 'app', 'apps/web', 'apps/frontend', 'packages/web'];
+  for (const subdir of subdirs) {
+    const subPath = path.join(dir, subdir);
+    if (!fs.existsSync(subPath)) continue;
+    const result = quickFrameworkDetect(subPath);
+    if (result.name !== 'unknown') {
+      return { subdir, framework: result };
+    }
+  }
+  return null;
+}
+
+/**
  * Run the full arabization pipeline
  */
 function runPipeline(dir, options = {}) {
@@ -148,16 +164,28 @@ function runPipeline(dir, options = {}) {
   const steps = [];
   const startTime = Date.now();
 
-  // Pre-scan
-  const framework = quickFrameworkDetect(absDir);
-  const cssScan = quickCSSScan(absDir);
-  const localeScan = quickLocaleScan(absDir);
+  // Pre-scan — detect monorepo
+  let workDir = absDir;
+  let framework = quickFrameworkDetect(absDir);
+  let monorepo = null;
+
+  if (framework.name === 'unknown') {
+    monorepo = detectMonorepoSubdir(absDir);
+    if (monorepo) {
+      workDir = path.join(absDir, monorepo.subdir);
+      framework = monorepo.framework;
+      framework.label += ` (monorepo: ${monorepo.subdir}/)`;
+    }
+  }
+
+  const cssScan = quickCSSScan(workDir);
+  const localeScan = quickLocaleScan(workDir);
 
   // Step 1: Direction
   if (!skipDirection) {
     const directionTool = loadTool('@rtl-first/direction-injector', '../direction-injector/index');
     if (directionTool) {
-      const result = directionTool.run(absDir, { lang, dryRun });
+      const result = directionTool.run(workDir, { lang, dryRun });
       steps.push({
         name: 'direction',
         label: 'Direction Injection',
@@ -183,7 +211,7 @@ function runPipeline(dir, options = {}) {
   if (!skipLocale) {
     const localeTool = loadTool('@rtl-first/locale-scaffolder', '../locale-scaffolder/index');
     if (localeTool) {
-      const result = localeTool.run(absDir, { lang, dryRun, stubMode });
+      const result = localeTool.run(workDir, { lang, dryRun, stubMode });
       steps.push({
         name: 'locale',
         label: 'Locale Scaffolding',
@@ -213,7 +241,7 @@ function runPipeline(dir, options = {}) {
       const layers = [];
       if (!skipCSS) layers.push(3);
       // Don't duplicate direction/locale — just CSS patches
-      const result = patchTool.run(absDir, { layers, lang, dryRun });
+      const result = patchTool.run(workDir, { layers, lang, dryRun });
       steps.push({
         name: 'patches',
         label: 'Patch Generation',

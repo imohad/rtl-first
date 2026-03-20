@@ -1,6 +1,6 @@
 {
   "name": "@rtl-first/arabize",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Arabize any open-source platform with one command — the master script for forkers",
   "main": "index.js",
   "bin": {
@@ -28,7 +28,7 @@
     "node": ">=16.0.0"
   },
   "dependencies": {
-    "@rtl-first/direction-injector": "0.1.0",
+    "@rtl-first/direction-injector": "0.1.1",
     "@rtl-first/locale-scaffolder": "0.1.0",
     "@rtl-first/patch-generator": "0.1.0"
   },

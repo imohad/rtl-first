@@ -269,6 +269,25 @@ function detectFramework(dir) {
     };
   }
 
+  // Fallback: monorepo detection — check common frontend subdirectories
+  const monorepoSubdirs = ['web', 'frontend', 'client', 'app', 'apps/web', 'apps/frontend', 'packages/web', 'packages/frontend'];
+  for (const subdir of monorepoSubdirs) {
+    const subPath = path.join(absDir, subdir);
+    if (!fs.existsSync(subPath)) continue;
+
+    const subResult = detectFramework(subPath);
+    if (subResult.framework && subResult.framework !== null) {
+      // Found framework in subdirectory
+      // Prefix rootFile with the subdirectory
+      if (subResult.rootFile) {
+        subResult.rootFile = path.join(subdir, subResult.rootFile);
+      }
+      subResult.monorepo = true;
+      subResult.monorepoSubdir = subdir;
+      return subResult;
+    }
+  }
+
   return {
     framework: null,
     label: 'Unknown',

@@ -84,7 +84,11 @@ function generateReport(detection, injectionResult, options = {}) {
 
   // Framework info
   if (detection.framework) {
-    lines.push(`  Framework:  ${c('bold', detection.label)}`);
+    let label = detection.label;
+    if (detection.monorepo) {
+      label += ` ${c('dim', `(monorepo: ${detection.monorepoSubdir}/)`)}`;
+    }
+    lines.push(`  Framework:  ${c('bold', detection.label)}${detection.monorepo ? '  ' + c('dim', `← detected in ${detection.monorepoSubdir}/`) : ''}`);
   } else {
     lines.push(`  Framework:  ${c('yellow', 'Unknown')}`);
   }
