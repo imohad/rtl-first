@@ -97,7 +97,7 @@ Layer 5 — Hardcoded Text    ← English strings buried in code
 | @rtl-first/locale-scaffolder | `npx @rtl-first/locale-scaffolder ./` | Scaffold ar.json + update config + generate LocaleSwitcher |
 | @rtl-first/patch-generator | `npx @rtl-first/patch-generator ./` | Generate rebaseable RTL patches per layer |
 
-All packages have **zero required dependencies** (except arabize which orchestrates the three forker tools). The codemod has optional peer dependencies (`postcss`, `jscodeshift`) for AST mode — without them it falls back to regex. Every tool supports `--dry-run`, `--json`, and `--help`.
+All packages have **zero required dependencies** (except arabize which orchestrates the three forker tools). The codemod has optional peer dependencies (`postcss`, `jscodeshift`) for AST mode — without them it falls back to regex. Every tool supports `--dry-run` and `--help`. JSON output (`--json`) available in audit, translation-kit, and contributor-agent.
 
 ## Who is this for?
 
