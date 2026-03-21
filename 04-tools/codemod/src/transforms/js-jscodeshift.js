@@ -31,8 +31,10 @@ const CAMEL_MAP = {
   borderTopRightRadius:   'borderStartEndRadius',
   borderBottomLeftRadius: 'borderEndStartRadius',
   borderBottomRightRadius:'borderEndEndRadius',
-  left:                   'insetInlineStart',
-  right:                  'insetInlineEnd',
+  // NOTE: left/right intentionally excluded from JS transforms.
+  // In JS context, left/right are overwhelmingly DOM properties (DOMRect.left,
+  // el.offsetLeft, layout objects) not CSS. PostCSS handles CSS left/right safely.
+  // This matches the cssOnly safety principle from the regex engine.
 };
 
 const TEXT_ALIGN_MAP = { left: 'start', right: 'end' };
@@ -127,8 +129,25 @@ export async function transformJSWithAST(source, filePath) {
     }
   });
 
+  const output = root.toSource();
+
+  // Safety check: jscodeshift has known bugs where it corrupts:
+  // 1. Built-in methods → "function X() { [native code] }"
+  // 2. __proto__ → "[object Object]"
+  // If corruption detected, discard output and return source unchanged.
+  const nativeBefore = (source.match(/\[native code\]/g) || []).length;
+  const nativeAfter = (output.match(/\[native code\]/g) || []).length;
+  const hasProtoCorruption = output.includes('[object Object]') && !source.includes('[object Object]');
+  if (nativeAfter > nativeBefore || hasProtoCorruption) {
+    return {
+      transformed: source,
+      changes: [],
+      warnings: [{ rule: 'jscodeshift output corrupted — skipped (file unchanged)', count: 1 }],
+    };
+  }
+
   return {
-    transformed: root.toSource(),
+    transformed: output,
     changes,
     warnings,
   };

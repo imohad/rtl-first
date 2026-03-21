@@ -156,10 +156,10 @@ describe('jscodeshift CSS-in-JS engine', async () => {
   });
 
   test('transforms JSX inline style', async () => {
-    const input = `<div style={{ marginLeft: '4px', left: '0' }} />`;
+    const input = `<div style={{ marginLeft: '4px', borderLeft: '1px solid' }} />`;
     const result = await transformJSWithAST(input, 'test.tsx');
     assert.ok(result.transformed.includes('marginInlineStart'));
-    assert.ok(result.transformed.includes('insetInlineStart'));
+    assert.ok(result.transformed.includes('borderInlineStart'));
   });
 
   test('transforms border radius properties', async () => {

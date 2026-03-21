@@ -13,7 +13,7 @@
 
 All engines are optional peer dependencies. Install `postcss` and/or `jscodeshift` for AST mode, or use `--quick` for regex-only.
 
-**Tested on real platforms:** Dify (133k★) — 859 files, 0 new TS errors. NocoBase (15k★) — 67 files, 0 new TS errors.
+**Tested on real platforms:** Dify (133k★) — 859 files, 0 new TS errors. NocoBase (15k★) — 78 files, 164 changes, 0 new TS errors, 0 corruption.
 
 ---
 
@@ -47,6 +47,13 @@ All engines are optional peer dependencies. Install `postcss` and/or `jscodeshif
 - ✅ Regex left/right rules restricted to CSS context only
 - ✅ Prevents false positives in JS code (const left = 10)
 - ✅ AST engines handle this safely by design
+- ✅ jscodeshift excludes left/right from JS transforms (DOM ambiguity)
+
+### Safety Fix: jscodeshift Output Corruption
+- ✅ Detects jscodeshift bug where built-in methods print as `function X() { [native code] }`
+- ✅ Detects `__proto__` → `[object Object]` corruption
+- ✅ Automatically discards corrupted output and preserves original file
+- ✅ Validated: 0 corruption on NocoBase (15k★) real migration
 
 ---
 

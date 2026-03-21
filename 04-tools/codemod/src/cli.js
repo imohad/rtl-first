@@ -44,7 +44,7 @@ for (let i = 0; i < args.length; i++) {
     printHelp();
     process.exit(0);
   } else if (args[i] === '--version') {
-    console.log('0.2.0');
+    console.log('0.2.1');
     process.exit(0);
   } else if (!args[i].startsWith('-')) {
     targetPath = args[i];
@@ -67,7 +67,7 @@ async function main() {
   }
 
   console.log('');
-  console.log(bold(`  RTL Codemod v0.2.0${dryRun ? dim(' (dry run)') : ''}`));
+  console.log(bold(`  RTL Codemod v0.2.1${dryRun ? dim(' (dry run)') : ''}`));
   console.log(`  ${dim('Converting physical → logical CSS properties')}`);
 
   // Show engine info
@@ -174,7 +174,7 @@ main().catch(err => {
 
 function printHelp() {
   console.log(`
-  @rtl-first/codemod v0.2.0 — Convert CSS physical properties to logical
+  @rtl-first/codemod v0.2.1 — Convert CSS physical properties to logical
 
   Usage:
     rtl-codemod [options] <path>
