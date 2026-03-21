@@ -1,20 +1,36 @@
 {
   "name": "@rtl-first/codemod",
-  "version": "0.1.0",
-  "description": "Convert CSS physical properties to logical properties for RTL support",
+  "version": "0.2.0",
+  "description": "Convert CSS physical properties to logical for RTL. Multi-engine: PostCSS AST for CSS, jscodeshift for CSS-in-JS, Tailwind class mapper, regex fallback.",
   "main": "src/index.js",
   "bin": {
     "rtl-codemod": "src/cli.js"
   },
   "type": "module",
   "scripts": {
-    "test": "node --test src/**/*.test.js"
+    "test": "node --test test/**/*.test.js"
+  },
+  "peerDependencies": {
+    "jscodeshift": "^17.3.0",
+    "postcss": "^8.5.8"
+  },
+  "peerDependenciesMeta": {
+    "postcss": {
+      "optional": true
+    },
+    "jscodeshift": {
+      "optional": true
+    }
   },
   "keywords": [
     "rtl",
     "css",
     "logical-properties",
     "codemod",
+    "postcss",
+    "jscodeshift",
+    "tailwind",
+    "ast",
     "right-to-left",
     "i18n",
     "arabic",
@@ -25,7 +41,7 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/imohad/rtl-first",
-    "directory": "packages/rtl-codemod"
+    "directory": "04-tools/codemod"
   },
   "engines": {
     "node": ">=18.0.0"

@@ -175,6 +175,10 @@ rtl-first/
     └── affine/
 ```
 
+## Roadmap
+
+See [ROADMAP.md](ROADMAP.md) for the technical direction — from regex-based scanning to AST-powered production-safe transforms, CI integration, and visual RTL validation.
+
 ## Contributing
 
 See [CONTRIBUTING.md](CONTRIBUTING.md). All contributions welcome — from documentation fixes to new platform recipes to tool improvements.
