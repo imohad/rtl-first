@@ -82,7 +82,7 @@ Layer 5 — Hardcoded Text    ← English strings buried in code
 | Package | Command | What it does |
 |---------|---------|-------------|
 | @rtl-first/audit | `npx @rtl-first/audit ./` | Scan any repo for RTL readiness across all 5 layers |
-| @rtl-first/codemod | `npx @rtl-first/codemod ./src` | Convert CSS physical → logical properties |
+| @rtl-first/codemod | `npx @rtl-first/codemod ./src` | Convert CSS physical → logical (PostCSS AST + jscodeshift + Tailwind + regex) |
 
 ### For Contributors
 | Package | Command | What it does |
@@ -97,7 +97,7 @@ Layer 5 — Hardcoded Text    ← English strings buried in code
 | @rtl-first/locale-scaffolder | `npx @rtl-first/locale-scaffolder ./` | Scaffold ar.json + update config + generate LocaleSwitcher |
 | @rtl-first/patch-generator | `npx @rtl-first/patch-generator ./` | Generate rebaseable RTL patches per layer |
 
-All packages have **zero dependencies** (except arabize which depends on the three forker tools). Every tool supports `--dry-run`, `--json`, and `--help`.
+All packages have **zero required dependencies** (except arabize which orchestrates the three forker tools). The codemod has optional peer dependencies (`postcss`, `jscodeshift`) for AST mode — without them it falls back to regex. Every tool supports `--dry-run`, `--json`, and `--help`.
 
 ## Who is this for?
 
@@ -136,7 +136,7 @@ rtl-first works on any project with a `package.json` and a supported framework. 
 | **AFFiNE** | 65k+ | 2 PRs merged upstream (RTL layout + Arabic locale + date-picker fix) |
 | **Cal.com** | 34k+ | Audited, straightforward — no complex text editor |
 | **AppFlowy** | 60k+ | Audited, Rust editor needs deep work |
-| **NocoBase** | 15k+ | Audited, straightforward interface |
+| **NocoBase** | 15k+ | **Real migration validated** — 78 files, 164 changes, 0 new TS errors, 0 corruption |
 
 ## Case Studies
 

@@ -34,7 +34,7 @@ function walk(dir, extensions, results, depth, maxDepth) {
       walk(join(dir, entry.name), extensions, results, depth + 1, maxDepth);
     } else if (entry.isFile()) {
       const ext = extname(entry.name).toLowerCase();
-      if (extensions.includes(ext)) {
+      if (extensions.has ? extensions.has(ext) : extensions.includes(ext)) {
         results.push(join(dir, entry.name));
       }
     }
