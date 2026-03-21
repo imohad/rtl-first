@@ -1,6 +1,6 @@
 {
   "name": "@rtl-first/codemod",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "Convert CSS physical properties to logical for RTL. Multi-engine: PostCSS AST for CSS, jscodeshift for CSS-in-JS, Tailwind class mapper, regex fallback.",
   "main": "src/index.js",
   "bin": {
